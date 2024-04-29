@@ -31,9 +31,11 @@ public class Main {
 		}
 		
 		makeTree(1, -1);
+		StringBuilder sb = new StringBuilder();
 		for (int i = 2; i <= N; i++) {
-			System.out.println(p[i]);
+			sb.append(p[i]).append('\n');
 		}
+		System.out.println(sb);
 	}
 	
 	private static void makeTree(int currNode, int parent) {
