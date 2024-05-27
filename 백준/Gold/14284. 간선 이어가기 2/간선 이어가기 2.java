@@ -71,6 +71,7 @@ public class Main {
 			Edge curr = pq.poll();
 			
 			int to = curr.to;
+			if (to == end) return dist[end];
 			if (vis[to]) continue;
 			vis[to] = true;
 			
@@ -80,6 +81,7 @@ public class Main {
 					pq.add(new Edge(next.to, dist[next.to]));
 				}
 			}
+			
 		}
 
 		return dist[end];
