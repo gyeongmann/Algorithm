@@ -31,10 +31,10 @@ public class Main {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 		int N = Integer.parseInt(in.readLine());
-		int[] degree = new int[N + 1];
-		int[] cost = new int[N + 1];
+		int[] degree = new int[N + 1]; // 위상정렬 차수
+		int[] cost = new int[N + 1]; // 시간
 		
-		List<Integer>[] adj = new ArrayList[N + 1];
+		List<Integer>[] adj = new ArrayList[N + 1]; // 인접리스트
 		for (int i = 1; i <= N; i++) {
 			adj[i] = new ArrayList<>();
 		}
@@ -56,6 +56,7 @@ public class Main {
 //			System.out.println(adj[i]);
 //		}
 //		System.out.println(Arrays.toString(degree));
+		
 		// 위상정렬
 		PriorityQueue<Work> pq = new PriorityQueue<>();
 		boolean[] vis = new boolean[N + 1];
@@ -75,13 +76,13 @@ public class Main {
 				int end = curr.end; // 업무 끝 시간
 				ans = Math.max(ans, end);
 				for (int next : adj[curr.idx]) {
-					if (!vis[next]) {
-						degree[next]--;
-						if (degree[next] == 0) {
-							pq.add(new Work(next, end, end + cost[next]));
-							vis[next] = true;
-						}
+					degree[next]--;
+					if (degree[next] == 0) {
+						pq.add(new Work(next, end, end + cost[next]));
 					}
+//					if (!vis[next]) {
+////							vis[next] = true;
+//					}
 				}
 			}
 //			System.out.println(pq);
