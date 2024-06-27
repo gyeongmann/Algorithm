@@ -76,9 +76,9 @@ public class Main {
             pq.add(new Tree(r, c, age));
         }
 
+        Queue<Tree> alive = new LinkedList<>();
+        Queue<Tree> dead = new LinkedList<>();
         for (int year = 1; year <= K; year++) {
-            Queue<Tree> alive = new LinkedList<>();
-            Queue<Tree> dead = new LinkedList<>();
             // 봄
             while (!pq.isEmpty()) {
                 Tree curr = pq.poll();
