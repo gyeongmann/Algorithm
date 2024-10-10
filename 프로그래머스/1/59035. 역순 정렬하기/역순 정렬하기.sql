@@ -1,0 +1,5 @@
+-- 모든 동물의 이름, 보호 시작일 조회
+-- ANIMAL_ID 역순 조회
+SELECT NAME, DATETIME
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID DESC;
