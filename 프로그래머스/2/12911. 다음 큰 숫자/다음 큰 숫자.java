@@ -19,42 +19,25 @@ class Solution {
             n >>= 1;
         }
         
-        
-        // for (int i = 19; i >= 0; i--) {
-        //     System.out.print(binary[i] + " ");
-        // }
-        // System.out.println();
-        // System.out.println(cnt);
-        
         int origin = cnt;
-        // System.out.println(minIdx);
         
         // 1. 마지막 1을 앞에 더하기
         binary[minIdx]--;
         int next = minIdx + 1;
         binary[next]++;
         
+        // 2. 더해진 1이 2가 되면 0으로 바꾸고, cnt--
         while(binary[next] == 2) {
             binary[next++] = 0;
             binary[next]++;
             cnt--;
         }
         
-        // for (int i = 19; i >= 0; i--) {
-        //     System.out.print(binary[i] + " ");
-        // }
-        // System.out.println();
-        // System.out.println(cnt);
-        
         for (int i = 0; i < origin - cnt; i++) {
             binary[i] = 1;
         }
         
-        // for (int i = 19; i >= 0; i--) {
-        //     System.out.print(binary[i] + " ");
-        // }
-        // System.out.println();
-        
+        // 3. 비트연산을 이용한 숫자 구성
         int tmp = 1;
         for (int i = 0; i < 20; i++) {
             if ((binary[i] & 1) == 1) {
