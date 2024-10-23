@@ -1,69 +1,73 @@
 import java.util.*;
 
 class Solution {
-    boolean[][] vis;
-    int n, m;
-    Map<Integer, Integer> map = new HashMap<>();
     
+    int[] dr = new int[] {1, 0, -1, 0};
+    int[] dc = new int[] {0, 1, 0, -1};
     public int solution(int[][] land) {
         int answer = 0;
+        int m = land.length;
+        int n = land[0].length;
         
-        n = land.length;
-        m = land[0].length;
-        
-        for (int col = 0; col < m; col++) {
-            map.put(col, 0);
-        }
-        
-        vis = new boolean[n][m];
-        for (int r = 0; r < n; r++) {
-            for (int c = 0; c < m; c++) {
-                if (vis[r][c]) continue;
-                if (land[r][c] == 0) continue;
-                BFS(r, c, land);
+        int[][] index = new int[m][n];
+        boolean[][] vis = new boolean[m][n];
+        int idx = 0;
+        Queue<int[]> q = new LinkedList<>();
+        List<int[]> list = new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
+        ans.add(-1);
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (land[r][c] == 1 && !vis[r][c]) {
+                    idx++;
+                    q.clear();
+                    list.clear();
+                    q.add(new int[] {r, c});
+                    list.add(new int[] {r, c});
+                    vis[r][c] = true;
+                    
+                    while(!q.isEmpty()) {
+                        int[] curr = q.poll();
+                        
+                        for (int i = 0; i < 4; i++) {
+                            int nr = curr[0] + dr[i];
+                            int nc = curr[1] + dc[i];
+                            
+                            if (nr < 0 || nc < 0 || nr >= m || nc >= n) continue;
+                            if (land[nr][nc] == 0 || vis[nr][nc]) continue;
+                            
+                            q.add(new int[] {nr, nc});
+                            list.add(new int[] {nr, nc});
+                            vis[nr][nc] = true;
+                        }
+                    }
+                    
+                    int size = list.size();
+                    for (int[] e : list) {
+                        index[e[0]][e[1]] = idx;
+                    }
+                    ans.add(size);
+                }
             }
         }
         
-        for (int col = 0; col < m; col++) {
-            answer = Math.max(answer, map.get(col));
-        }
+        // for (int[] row : index) {
+        //     System.out.println(Arrays.toString(row));
+        // }
+        // System.out.println(ans);
         
+        for (int c = 0; c < n; c++) {
+            boolean[] check = new boolean[idx+1];
+            int cnt = 0;
+            for (int r = 0; r < m; r++) {
+                if (index[r][c] == 0) continue;
+                check[index[r][c]] = true;
+            }
+            for (int i = 1; i <= idx; i++) {
+                if (check[i]) cnt += ans.get(i);
+            }
+            answer = Math.max(answer, cnt);
+        }
         return answer;
-    }
-    
-    int[] dr = {1, 0, -1, 0};
-    int[] dc = {0, 1, 0, -1};
-    
-    public void BFS(int row, int col, int[][] land) {
-        int cnt = 0;
-        Queue<Integer[]> q = new LinkedList<>();
-        Set<Integer> set = new HashSet<>();
-        q.add(new Integer[] {row, col});
-        vis[row][col] = true;
-        cnt++;
-        set.add(col);
-        
-        while (!q.isEmpty()) {
-            Integer[] curr = q.poll();
-            int r = curr[0];
-            int c = curr[1];
-            
-            for (int i = 0; i < 4; i++) {
-                int nr = r + dr[i];
-                int nc = c + dc[i];
-                
-                if (nr < 0 || nc < 0 || nr >= n || nc >= m) continue;
-                if (land[nr][nc] == 0) continue;
-                if (vis[nr][nc]) continue;
-                q.add(new Integer[] {nr, nc});
-                vis[nr][nc] = true;
-                cnt++;
-                set.add(nc);
-            }
-        }
-        
-        for (int idx : set) {
-            map.put(idx, map.get(idx) + cnt);
-        }
     }
 }
