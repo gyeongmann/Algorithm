@@ -55,19 +55,17 @@ public class Main {
         }
 
         long[] ans = new long[N+1];
-        Arrays.fill(ans, 922337203685477580L);
+        Arrays.fill(ans, Long.MAX_VALUE);
 
         // dijstra(N)
         PriorityQueue<Edge> pq = new PriorityQueue<>();
-        boolean[] vis = new boolean[N+1];
         ans[N] = 0;
         pq.add(new Edge(N, 0));
 
         while(!pq.isEmpty()) {
             Edge curr = pq.poll();
 
-            if (vis[curr.to]) continue;
-            vis[curr.to] = true;
+            if (ans[curr.to] < curr.weight) continue;
 
             for (Edge e : adj[curr.to]) {
                 if (ans[e.to] > ans[curr.to] + e.weight) {
@@ -77,8 +75,9 @@ public class Main {
             }
         }
 
-        for (int i = 0; i < N; i++) {
-            System.out.print(ans[i] + " ");
-        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < N; i++)
+            sb.append(ans[i]).append(' ');
+        System.out.println(sb);
     }
 }
