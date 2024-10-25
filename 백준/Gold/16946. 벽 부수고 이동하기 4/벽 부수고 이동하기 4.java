@@ -37,11 +37,11 @@ public class Main {
 		}
 
 		Node[][] group = new Node[N][M];
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				group[i][j] = new Node();
-			}
-		}
+		// for (int i = 0; i < N; i++) {
+		// 	for (int j = 0; j < M; j++) {
+		// 		group[i][j] = new Node();
+		// 	}
+		// }
 		int[] dr = {1, 0, -1, 0};
 		int[] dc = {0, 1, 0, -1};
 		boolean[][] visited = new boolean[N][M];
@@ -93,6 +93,8 @@ public class Main {
 						int nc = j + dc[k];
 						if (nr < 0 || nc < 0 || nr >= N || nc >= M)
 							continue;
+						if (group[nr][nc] == null)
+							continue;
 						if (check[group[nr][nc].idx])
 							continue;
 						check[group[nr][nc].idx] = true;
@@ -110,6 +112,6 @@ public class Main {
 			sb.append("\n");
 		}
 
-		System.out.println(sb);
+		System.out.print(sb);
 	}
 }
