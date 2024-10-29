@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
     int cnt = 0;
     boolean[] visited;
-    Set<Set<Integer>> tmp = new HashSet<>();
+    Set<Integer> tmp = new HashSet<>();
     public int solution(String[] user_id, String[] banned_id) {
         int answer = 0;
         
@@ -24,7 +24,7 @@ class Solution {
         // }
         // System.out.println();
         
-        dfs(0, new HashSet<Integer>(), map);
+        dfs(0, 0, map);
         // for (Set<Integer> row : tmp) {
         //     System.out.println(row);
         // }
@@ -32,22 +32,20 @@ class Solution {
         return answer;
     }
     
-    void dfs(int banIdx, Set<Integer> set, int[][] map) {
+    void dfs(int banIdx, int bit, int[][] map) {
         if (banIdx == map[0].length) {
-            // if (!tmp.contains(set)) {
-            //     System.out.println(set);
-            // }
-            tmp.add(set);
+            tmp.add(bit);
             return;
         }
         
         for (int i = 0; i < map.length; i++) {
-            if (set.contains(i)) continue;
+            int curr = 1 << i;
+            if ((bit & curr) > 0) continue;
             
             if (map[i][banIdx] == 1) {
-                set.add(i);
-                dfs(banIdx+1, new HashSet<>(set), map);
-                set.remove(i);
+                bit += curr;
+                dfs(banIdx+1, bit, map);
+                bit -= curr;
             }
         }
     }
