@@ -1,36 +1,36 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(in.readLine());
-		int N = Integer.parseInt(st.nextToken()); // 물품의 수
-		int K = Integer.parseInt(st.nextToken()); // 배낭 용량
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
-		int[][] arr = new int[N][2];
-		for (int i = 0; i < N; i++) {
-			st = new StringTokenizer(in.readLine());
-			arr[i][0] = Integer.parseInt(st.nextToken()); // 무게
-			arr[i][1] = Integer.parseInt(st.nextToken()); // 가치
-		}
+        st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken()); // 물건 개수
+        int K = Integer.parseInt(st.nextToken()); // 최대 무게
 
-		int[][] dp = new int[N + 1][K + 1];
+        int[][] dp = new int[N+1][K+1];
+        int[] w = new int[N+1];
+        int[] v = new int[N+1];
+        for (int i = 1; i <= N; i++) {
+            st = new StringTokenizer(br.readLine());
+            w[i] = Integer.parseInt(st.nextToken());
+            v[i] = Integer.parseInt(st.nextToken());
+        }
 
-		for (int i = 1; i <= N; i++) {
-			int curWeight = arr[i - 1][0];
-			int curValue = arr[i - 1][1];
-			for (int j = 0; j <= K; j++) {
-				if (curWeight <= j) {
-					dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - curWeight] + curValue);
-				} else {
-					dp[i][j] = dp[i - 1][j];
-				}
-			}
-		}
+        for (int i = 1; i <= N; i++) {
+            int curr = w[i];
+            for (int j = 0; j <= K; j++) {
+                if (j > K) break;
+                if (j < curr) dp[i][j] = dp[i-1][j];
+                else dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j-curr] + v[i]);
+            }
+        }
 
-		System.out.println(dp[N][K]);
-	}
+        System.out.println(dp[N][K]);
+    }
 }
