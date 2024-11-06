@@ -11,9 +11,8 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
         int[] dp = new int[k+1];
-        for (int i = 1; i <= k; i++) {
-            dp[i] = 987654321;
-        }
+        Arrays.fill(dp, 987654321);
+        dp[0]=0;
         for (int i = 0; i < n; i++) {
             int coin = Integer.parseInt(br.readLine());
             for (int j = coin; j <= k; j++) {
