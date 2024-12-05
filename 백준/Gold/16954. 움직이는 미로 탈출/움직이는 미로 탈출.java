@@ -7,6 +7,7 @@ import java.util.Queue;
 
 public class Main {
     static char[][] map = new char[8][8];
+    static boolean vis[][];
     static int[] dr = {0, 0, -1, -1, -1, 0, 1, 1, 1};
     static int[] dc = {0, -1, -1, 0, 1, 1, 1, 0, -1};
 
@@ -30,7 +31,7 @@ public class Main {
                 System.out.println(1);
                 return;
             }
-            
+            vis = new boolean[8][8];
             int size = q.size();
             for (int i = 0; i < size; i++) {
                 int[] curr = q.poll();
@@ -47,8 +48,10 @@ public class Main {
                     int nr = r + dr[dir];
                     int nc = c + dc[dir];
                     if (nr < 0 || nc < 0 || nr >= 8 || nc >= 8) continue;
+                    if (vis[nr][nc]) continue;
                     if (map[nr][nc] == '.') {
                         q.offer(new int[] {nr, nc});
+                        vis[nr][nc] = true;
                     }
                 }
             }
