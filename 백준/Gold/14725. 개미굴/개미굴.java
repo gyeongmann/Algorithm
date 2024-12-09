@@ -63,13 +63,17 @@ public class Main {
         for (Node node : root.child) {
             printNode(node, 0);
         }
+        System.out.print(sb);
     }
+
+    static StringBuilder sb = new StringBuilder();
 
     static void printNode(Node curr, int depth) {
         for (int i = 0; i < depth; i++) {
-            System.out.print("--");
+            sb.append("--");
         }
-        System.out.println(curr.name);
+        // System.out.println(curr.name);
+        sb.append(curr.name).append('\n');
 
         if (curr.child.size() == 0) return;
         Collections.sort(curr.child);
