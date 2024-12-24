@@ -10,20 +10,18 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
 
-        long[][] dp = new long[K+1][N+1];
+        long[] dp = new long[N+1];
 
         for (int i = 1; i <= K; i++) {
             st = new StringTokenizer(br.readLine());
             int I = Integer.parseInt(st.nextToken());
             int T = Integer.parseInt(st.nextToken());
 
-            dp[i] = Arrays.copyOf(dp[i-1], N+1);
-            for (int j = T; j <= N; j++) {
-                dp[i][j] = Math.max(dp[i][j], dp[i-1][j-T] + I);
+            for (int j = N; j >= T; j--) {
+                dp[j] = Math.max(dp[j], dp[j-T] + I);
             }
-            // System.out.println(Arrays.toString(dp[i]));
         }
 
-        System.out.println(dp[K][N]);
+        System.out.println(dp[N]);
     }
 }
