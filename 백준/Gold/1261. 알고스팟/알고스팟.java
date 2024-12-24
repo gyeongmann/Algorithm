@@ -2,6 +2,16 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+
+    static class Node {
+        int r, c, sum;
+        public Node(int r, int c, int sum) {
+            this.r = r;
+            this.c = c;
+            this.sum = sum;
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -19,8 +29,8 @@ public class Main {
             }
         }
 
-        Deque<int[]> deque = new ArrayDeque<>();
-        deque.offer(new int[] {0, 0, map[0][0]});
+        Deque<Node> deque = new ArrayDeque<>();
+        deque.offer(new Node(0, 0, map[0][0]));
         boolean[][] vis = new boolean[R][C];
         vis[0][0] = true;
 
@@ -28,10 +38,10 @@ public class Main {
         int[] dc = {0, 1, 0, -1};
 
         while(!deque.isEmpty()) {
-            int[] curr = deque.pollFirst();
-            int r = curr[0];
-            int c = curr[1];
-            int sum = curr[2];
+            Node curr = deque.pollFirst();
+            int r = curr.r;
+            int c = curr.c;
+            int sum = curr.sum;
 
             if (r == R-1 && c == C-1) {
                 System.out.println(sum);
@@ -46,9 +56,9 @@ public class Main {
                 if(vis[nr][nc]) continue;
 
                 if(map[nr][nc] == 0) {
-                    deque.offerFirst(new int[] {nr, nc, sum});
+                    deque.offerFirst(new Node(nr, nc, sum));
                 } else {
-                    deque.offerLast(new int[] {nr, nc, sum+1});
+                    deque.offerLast(new Node(nr, nc, sum+1));
                 }
                 vis[nr][nc] = true;
             }
