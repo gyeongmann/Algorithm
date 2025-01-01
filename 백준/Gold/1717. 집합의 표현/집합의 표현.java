@@ -46,7 +46,10 @@ public class Main {
     static void union(int a, int b) {
         int pa = find(a);
         int pb = find(b);
-        p[pb] = pa;
+
+        if (pa != pb) {
+            p[pb] = pa;
+        }
     }
 
     static int find(int x) {
