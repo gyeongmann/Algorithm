@@ -33,14 +33,14 @@ public class Main {
         }
 
         // cycle detection
-        boolean[] recur = new boolean[N + 1];
-        for (int i = 1; i <= N; i++) {
-            boolean[] vis = new boolean[N + 1];
-            if (isCycle(i, vis, recur)) {
-                System.out.println(0);
-                return;
-            }
-        }
+        // boolean[] recur = new boolean[N + 1];
+        // for (int i = 1; i <= N; i++) {
+        // boolean[] vis = new boolean[N + 1];
+        // if (isCycle(i, vis, recur)) {
+        // System.out.println(0);
+        // return;
+        // }
+        // }
 
         Queue<Integer> q = new LinkedList<>();
         for (int i = 1; i <= N; i++) {
@@ -49,12 +49,12 @@ public class Main {
             }
         }
 
-        boolean[] vis = new boolean[N + 1];
         StringBuilder sb = new StringBuilder();
+        List<Integer> list = new ArrayList<>();
         while (!q.isEmpty()) {
             int curr = q.poll();
             sb.append(curr).append('\n');
-            vis[curr] = true;
+            list.add(curr);
 
             for (int next : adj[curr]) {
                 degree[next]--;
@@ -65,28 +65,11 @@ public class Main {
             }
         }
 
-        for (int i = 1; i <= N; i++) {
-            if (!vis[i]) {
-                sb.append(i).append('\n');
-            }
+        if (list.size() < N) {
+            System.out.println(0);
+            return;
         }
 
         System.out.print(sb);
-    }
-
-    private static boolean isCycle(int curr, boolean[] vis, boolean[] recur) {
-        vis[curr] = true;
-        recur[curr] = true;
-
-        for (int next : adj[curr]) {
-            if (!vis[next] && isCycle(next, vis, recur)) {
-                return true;
-            } else if (recur[next]) {
-                return true;
-            }
-        }
-
-        recur[curr] = false;
-        return false;
     }
 }
