@@ -1,34 +1,39 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.*;
 
-public class Main {
-	static int N, M, len, ans;
-	static char[] ch = {'I', 'O'}, arr;
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		
-		N = Integer.parseInt(in.readLine());
-		M = Integer.parseInt(in.readLine());
-		arr = in.readLine().toCharArray();
-		
-		len = 2 * N + 1;
-		
-		for (int i = 0; i <= M - len; i++) {
-			if (arr[i] == 'I') {
-				check(i);
-			}
-		}
-		
-		System.out.println(ans);
-	}
-	
-	static void check(int i) {
-		int flag = 0;
-		for (int idx = 0; idx < len; idx++) {
-			if (arr[i + idx] != ch[flag]) return;
-			flag = (flag + 1) % 2;
-		}
-		ans++;
-	}
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        int M = Integer.parseInt(br.readLine());
+        String s = br.readLine();
+        
+        int idx = 0;
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < M-1; i++) {
+            int cnt = 0;
+            if (s.charAt(i) == 'I') {
+                i++;
+                while (i < M-1) {
+                    if (s.charAt(i) == 'O' && s.charAt(i+1) == 'I') {
+                        cnt++;
+                        i += 2;
+                        continue;
+                    }
+                    
+                    break;
+                }
+                list.add(cnt);
+                cnt = 0;
+                i--;
+            }
+        }
+        int answer = 0;
+        for (int i : list) {
+            if (i < N) continue;
+            answer += i - N + 1;
+        }
+        
+        System.out.println(answer);
+    }
 }
