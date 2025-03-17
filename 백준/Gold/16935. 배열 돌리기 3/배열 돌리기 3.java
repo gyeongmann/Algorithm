@@ -12,11 +12,11 @@ public class Main {
 		int M = Integer.parseInt(st.nextToken());
 		int R = Integer.parseInt(st.nextToken());
 
-		String[][] map = new String[N][M];
+		int[][] map = new int[N][M];
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < M; j++) {
-				map[i][j] = st.nextToken();
+				map[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
 
@@ -27,7 +27,7 @@ public class Main {
 			if (op == 1) {
 				int r = map.length;
 				int c = map[0].length;
-				String[][] nmap = new String[r][c];
+				int[][] nmap = new int[r][c];
 
 				for (int i = 0; i < r; i++) {
 					nmap[i] = map[r-i-1];
@@ -36,7 +36,7 @@ public class Main {
 			} else if (op == 2) {
 				int r = map.length;
 				int c = map[0].length;
-				String[][] nmap = new String[r][c];
+				int[][] nmap = new int[r][c];
 
 				for (int i = 0; i < r; i++) {
 					for (int j = 0; j < c; j++) {
@@ -47,7 +47,7 @@ public class Main {
 			} else if (op == 3) {
 				int r = map.length;
 				int c = map[0].length;
-				String[][] nmap = new String[c][r];
+				int[][] nmap = new int[c][r];
 
 				for (int i = 0; i < c; i++) {
 					for (int j = 0; j < r; j++) {
@@ -58,7 +58,7 @@ public class Main {
 			} else if (op == 4) {
 				int r = map.length;
 				int c = map[0].length;
-				String[][] nmap = new String[c][r];
+				int[][] nmap = new int[c][r];
 
 				for (int i = 0; i < c; i++) {
 					for (int j = 0; j < r; j++) {
@@ -69,7 +69,7 @@ public class Main {
 			} else if (op == 5) {
 			    int r = map.length;
 				int c = map[0].length;
-				String[][] nmap = new String[r][c];
+				int[][] nmap = new int[r][c];
 				
 				for (int i = 0; i < r/2; i++) {
 				    for (int j = 0; j < c/2; j++) {
@@ -99,7 +99,7 @@ public class Main {
 			} else if (op == 6) {
 			    int r = map.length;
 				int c = map[0].length;
-				String[][] nmap = new String[r][c];
+				int[][] nmap = new int[r][c];
 				
 				for (int i = 0; i < r/2; i++) {
 				    for (int j = 0; j < c/2; j++) {
