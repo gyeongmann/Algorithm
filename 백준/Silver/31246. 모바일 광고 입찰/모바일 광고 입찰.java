@@ -8,51 +8,52 @@ public class Main {
 		int N = Integer.parseInt(st.nextToken());
 		int K = Integer.parseInt(st.nextToken());
 		
-		Map<Integer, Integer> diffCount = new HashMap<>();
-	    int guaranteed = 0;
+		int mol[] = new int[N];
+		int other[] = new int[N];
+		
+		int now = 0;
+		Set<Integer> set = new HashSet<>();
 		for (int i = 0; i < N; i++) {
 		    st = new StringTokenizer(br.readLine());
-		    int a = Integer.parseInt(st.nextToken());
-		    int b = Integer.parseInt(st.nextToken());
+		    mol[i] = Integer.parseInt(st.nextToken());
+		    other[i] = Integer.parseInt(st.nextToken());
 		    
-		    if (a >= b) {
-		        guaranteed++;
+		    if (mol[i] >= other[i]) {
+		        now++;
 		        continue;
 		    }
 		    
-		    int diff = b - a;
-	        diffCount.put(diff, diffCount.getOrDefault(diff, 0) + 1);
+		    set.add(other[i] - mol[i]);
 		}
 		
-		if (guaranteed >= K) {
-	        System.out.println(0);
-	        return;
-	    }
+		if (now >= K) {
+		    System.out.println(0);
+		    return;
+		}
 		
-		List<Integer> keys = new ArrayList<>(diffCount.keySet());
-	    Collections.sort(keys);
-	    
-	    int[] prefixSum = new int[keys.size()];
-	    prefixSum[0] = diffCount.get(keys.get(0));
-	    for (int i = 1; i < keys.size(); i++) {
-	        prefixSum[i] = prefixSum[i - 1] + diffCount.get(keys.get(i));
-	    }
-	    
-		int ans = 1_000_000_000;
+		List<Integer> list = new ArrayList<>(set);
+		Collections.sort(list);
 		int left = 0;
-		int right = keys.size()-1;
-		int need = K - guaranteed;
+		int right = list.size()-1;
+		int ans = 0;
 		while(left <= right) {
-		    int mid = left + (right - left) / 2;
-		    int cnt = prefixSum[mid];
-		    if (cnt >= need) {
-		        ans = keys.get(mid);
-	            right = mid - 1;
+		    int mid = (left + right) / 2;
+		    int X = list.get(mid);
+		    int cnt = 0;
+		    for (int i = 0; i < N; i++) {
+		        if (mol[i] + X >= other[i]) {
+		            cnt++;
+		        }
+		    }
+		    
+		    if (cnt >= K) {
+		        right = mid - 1;
+		        ans = X;
 		    } else {
 		        left = mid + 1;
 		    }
 		}
 		
-	    System.out.println(ans);
+		System.out.println(ans);
 	}
 }
