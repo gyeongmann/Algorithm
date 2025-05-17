@@ -12,7 +12,7 @@ public class Main {
 		int other[] = new int[N];
 		
 		int now = 0;
-		Set<Integer> set = new HashSet<>();
+		int max = 0;
 		for (int i = 0; i < N; i++) {
 		    st = new StringTokenizer(br.readLine());
 		    mol[i] = Integer.parseInt(st.nextToken());
@@ -23,7 +23,7 @@ public class Main {
 		        continue;
 		    }
 		    
-		    set.add(other[i] - mol[i]);
+		    max = Math.max(max, other[i] - mol[i]);
 		}
 		
 		if (now >= K) {
@@ -31,24 +31,21 @@ public class Main {
 		    return;
 		}
 		
-		List<Integer> list = new ArrayList<>(set);
-		Collections.sort(list);
 		int left = 0;
-		int right = list.size()-1;
+		int right = max;
 		int ans = 0;
 		while(left <= right) {
 		    int mid = (left + right) / 2;
-		    int X = list.get(mid);
 		    int cnt = 0;
 		    for (int i = 0; i < N; i++) {
-		        if (mol[i] + X >= other[i]) {
+		        if (mol[i] + mid >= other[i]) {
 		            cnt++;
 		        }
 		    }
 		    
 		    if (cnt >= K) {
 		        right = mid - 1;
-		        ans = X;
+		        ans = mid;
 		    } else {
 		        left = mid + 1;
 		    }
