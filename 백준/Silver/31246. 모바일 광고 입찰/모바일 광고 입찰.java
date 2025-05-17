@@ -8,60 +8,51 @@ public class Main {
 		int N = Integer.parseInt(st.nextToken());
 		int K = Integer.parseInt(st.nextToken());
 		
-		List<Integer> list = new ArrayList<>();
-		Map<Integer, Integer> map = new HashMap<>();
+		Map<Integer, Integer> diffCount = new HashMap<>();
+	    int guaranteed = 0;
 		for (int i = 0; i < N; i++) {
 		    st = new StringTokenizer(br.readLine());
 		    int a = Integer.parseInt(st.nextToken());
 		    int b = Integer.parseInt(st.nextToken());
 		    
 		    if (a >= b) {
-		        K--;
+		        guaranteed++;
 		        continue;
 		    }
 		    
-		    if (map.containsKey(b-a)) {
-		        int cnt = map.get(b-a);
-		        map.put(b-a, cnt+1);
-		    } else {
-		        list.add(b-a);
-		        map.put(b-a, 1);
-		    }
+		    int diff = b - a;
+	        diffCount.put(diff, diffCount.getOrDefault(diff, 0) + 1);
 		}
 		
-		if (K <= 0) {
-		    System.out.println(0);
-		    return;
-		}
+		if (guaranteed >= K) {
+	        System.out.println(0);
+	        return;
+	    }
 		
-		Collections.sort(list);
+		List<Integer> keys = new ArrayList<>(diffCount.keySet());
+	    Collections.sort(keys);
+	    
+	    int[] prefixSum = new int[keys.size()];
+	    prefixSum[0] = diffCount.get(keys.get(0));
+	    for (int i = 1; i < keys.size(); i++) {
+	        prefixSum[i] = prefixSum[i - 1] + diffCount.get(keys.get(i));
+	    }
+	    
 		int ans = 1_000_000_000;
 		int left = 0;
-		int right = list.size()-1;
+		int right = keys.size()-1;
+		int need = K - guaranteed;
 		while(left <= right) {
 		    int mid = left + (right - left) / 2;
-		    int cnt = count(map, list.get(mid));
-		    if (K - cnt <= 0) {
-		        ans = Math.min(ans, list.get(mid));
-		        right = mid - 1;
+		    int cnt = prefixSum[mid];
+		    if (cnt >= need) {
+		        ans = keys.get(mid);
+	            right = mid - 1;
 		    } else {
 		        left = mid + 1;
 		    }
 		}
 		
-	   // System.out.println(list);
-	   // System.out.println(map);
 	    System.out.println(ans);
-	}
-	
-	static int count(Map<Integer, Integer> map, int mid) {
-	    Set<Integer> set = map.keySet();
-	    int cnt = 0;
-	    for (int key : set) {
-	        if (key <= mid) {
-	            cnt += map.get(key);
-	        }
-	    }
-	    return cnt;
 	}
 }
