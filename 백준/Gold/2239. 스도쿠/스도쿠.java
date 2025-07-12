@@ -15,17 +15,55 @@ public class Main {
 		    }
 		}
 		
+		// 전처리
+		for (int idx = list.size() - 1; idx >= 0; idx--) {
+		    int[] curr = list.get(idx);
+		    boolean[] check = new boolean[10];
+		    for (int i = 0; i < 9; i++) {
+		        check[map[curr[0]][i]] = true;
+		        check[map[i][curr[1]]] = true;
+		    }
+		    
+		    int rs = curr[0] - curr[0]%3;
+	        int cs = curr[1] - curr[1]%3;
+	        for (int r = 0; r < 3; r++) {
+	            for (int c = 0; c < 3; c++) {
+	                check[map[rs + r][cs + c]] = true;
+	            }
+	        }
+		    
+		    int cnt = 0;
+		    int x = 0;
+		    for (int i = 1; i <= 9; i++) {
+		        if (!check[i]) {
+		            cnt++;
+    		        x = i;
+		        }
+		    }
+		    
+		    if (cnt == 1) {
+		        map[curr[0]][curr[1]] = x;
+		        list.remove(idx);
+		    }
+		}
+		
 		dfs(0);
+	}
+	
+	static void printMap() {
+	    StringBuilder sb = new StringBuilder();
+	    for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                sb.append(map[i][j]);
+            }
+            sb.append('\n');
+        }
+        System.out.println(sb.toString());
 	}
 	
 	static void dfs(int depth) {
 	    if (depth >= list.size()) {
-	        for (int i = 0; i < 9; i++) {
-	            for (int j = 0; j < 9; j++) {
-	                System.out.print(map[i][j]);
-	            }
-	            System.out.println();
-	        }
+	        printMap();
 	        System.exit(0);
 	    }
 	    
