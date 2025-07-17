@@ -5,6 +5,8 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    int T = Integer.parseInt(br.readLine());
+	    
+	    StringBuilder sb = new StringBuilder();
 	    for (int t = 0; t < T; t++) {
 	        int N = Integer.parseInt(br.readLine());
 	        StringTokenizer st = new StringTokenizer(br.readLine());
@@ -28,7 +30,8 @@ public class Main {
 	            pq.offer(tmp);
 	        }
 	        
-	        System.out.println(sum);
+	        sb.append(sum).append('\n');
 	    }
+	    System.out.println(sb.toString());
 	}
 }
