@@ -8,27 +8,6 @@ public class Main {
 	    StringBuilder sb = new StringBuilder();
 	    int N = Integer.parseInt(br.readLine());
 	    
-	   // if (N == 1) {
-	   //     st = new StringTokenizer(br.readLine(), ".");
-	   //     int[] mask = {225, 225, 225, 225};
-	   //     int[] address = new int[4];
-	   //     for (int i = 0; i < 4; i++) {
-	   //         int curr = Integer.parseInt(st.nextToken());
-	   //         address[i] = mask[i] & curr;
-	   //     }
-	        
-	   //     for (int i = 0; i < 3; i++) {
-    //             sb.append(address[i]).append('.');
-    //         }
-    //         sb.append(address[3]).append('\n');
-    //         for (int i = 0; i < 3; i++) {
-    //             sb.append(mask[i]).append('.');
-    //         }
-    //         sb.append(mask[3]).append('\n');
-    //         System.out.println(sb.toString());
-	   //     return;
-	   // }
-	    
 	    int[][] ips= new int[N][4];
 	    for (int i = 0; i < N; i++) {
 	        st = new StringTokenizer(br.readLine(), ".");
