@@ -27,12 +27,9 @@ public class Main {
 	        diff[b] -= H;
 	    }
 	    
-	    for (int i = 1; i <= N; i++) {
-	        diff[i] += diff[i-1];
-	    }
-	    
 	    StringBuilder sb = new StringBuilder();
 	    for (int i = 0; i < N; i++) {
+	        diff[i+1] += diff[i];
 	        before[i] += diff[i];
 	        sb.append(before[i] + " ");
 	    }
