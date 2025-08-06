@@ -16,16 +16,19 @@ public class Main {
 	        before[i] = Integer.parseInt(st.nextToken());
 	    }
 	    
-	    int[] diff = new int[N];
+	    int[] diff = new int[N+1];
 	    for (int i = 0; i < M; i++) {
 	        st = new StringTokenizer(br.readLine());
-	        int a = Integer.parseInt(st.nextToken())-1;
+	        int a = Integer.parseInt(st.nextToken());
 	        int b = Integer.parseInt(st.nextToken());
 	        int H = Integer.parseInt(st.nextToken());
 	        
-	        for (int j = a; j < b; j++) {
-	            diff[j] += H;
-	        }
+	        diff[a-1] += H;
+	        diff[b] -= H;
+	    }
+	    
+	    for (int i = 1; i <= N; i++) {
+	        diff[i] += diff[i-1];
 	    }
 	    
 	    StringBuilder sb = new StringBuilder();
