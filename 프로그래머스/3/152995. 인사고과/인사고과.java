@@ -2,7 +2,7 @@ import java.util.*;
 
 class Solution {
     public int solution(int[][] scores) {
-        int answer = 0;
+        int answer = 1;
         int wanhoA = scores[0][0];
         int wanhoB = scores[0][1];
         int wanhoSum = wanhoA + wanhoB;
@@ -22,11 +22,10 @@ class Solution {
                 continue;
             }
             
-            if (a + b > wanhoSum) rank++;
+            if (a + b > wanhoSum) answer++;
             
             maxB = Math.max(maxB, b);
         }
-        answer = rank;
         return answer;
     }
 }
