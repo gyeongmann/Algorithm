@@ -9,27 +9,23 @@ public class Main {
 
 		int N = Integer.parseInt(br.readLine());
 		st = new StringTokenizer(br.readLine());
+		int[] A = new int[N];
+		for (int i = 0; i < N; i++) {
+			A[i] = Integer.parseInt(st.nextToken());
+		}
 
-		Stack<int[]> stack = new Stack<>();
-		stack.push(new int[] { 0, Integer.parseInt(st.nextToken()) });
+		Stack<Integer> stack = new Stack<>();
+		stack.push(0);
 		int[] answer = new int[N];
 		for (int i = 1; i < N; i++) {
-			int num = Integer.parseInt(st.nextToken());
-
-			if (!stack.isEmpty() && stack.peek()[1] < num) {
-				while (!stack.isEmpty() && stack.peek()[1] < num) {
-					int[] top = stack.pop();
-					answer[top[0]] = num;
-				}
-				stack.push(new int[] { i, num });
-			} else {
-				stack.push(new int[] { i, num });
+			while (!stack.isEmpty() && A[stack.peek()] < A[i]) {
+				answer[stack.pop()] = A[i];
 			}
+			stack.push(i);
 		}
 
 		while (!stack.isEmpty()) {
-			int[] top = stack.pop();
-			answer[top[0]] = -1;
+			answer[stack.pop()] = -1;
 		}
 
 		StringBuilder sb = new StringBuilder();
