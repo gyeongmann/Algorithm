@@ -1,21 +1,23 @@
-import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        LinkedList<Integer> q = new LinkedList<>();
-        int N = sc.nextInt();
 
-        for (int i = 0; i < N; i++) {
-            q.add(i + 1);
-        }
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N = Integer.parseInt(br.readLine());
 
-        while (q.size() > 1) {
-            q.removeFirst();
-            q.add(q.getFirst());
-            q.removeFirst();
-        }
+		if (N == 1) {
+			System.out.println(1);
+			return;
+		}
 
-        System.out.println(q.getFirst());
-    }
+		int k = 0;
+		while (N - ((int) Math.pow(2, k)) > 0) {
+			k++;
+		}
+
+		k--;
+		int m = N - ((int) Math.pow(2, k));
+		System.out.println(2 * m);
+	}
 }
