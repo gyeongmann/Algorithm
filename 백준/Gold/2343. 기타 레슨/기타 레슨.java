@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	static int N, M;
+	static int N, M, right;
 	static int[] A;
 
 	public static void main(String[] args) throws IOException {
@@ -20,6 +20,7 @@ public class Main {
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < N; i++) {
 			A[i] = Integer.parseInt(st.nextToken());
+			right += A[i];
 		}
 
 		int result = parametricSearch();
@@ -28,8 +29,7 @@ public class Main {
 
 	private static int parametricSearch() {
 		int left = 1;
-		int right = 1_000_000_001;
-		int answer = 1_000_000_001;
+		int answer = right;
 
 		while (left <= right) {
 			int mid = left + (right - left) / 2;
