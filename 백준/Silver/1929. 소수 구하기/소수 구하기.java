@@ -12,7 +12,8 @@ public class Main {
 		int N = Integer.parseInt(st.nextToken());
 		boolean[] isNotPrime = new boolean[N + 1];
 		isNotPrime[1] = true;
-		for (int i = 2; i < N; i++) {
+		int sqrtN = (int) Math.sqrt(N);
+		for (int i = 2; i <= sqrtN; i++) {
 			if (isNotPrime[i]) continue;
 			int idx = 2;
 			while (i * idx <= N) {
